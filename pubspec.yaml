@@ -1,0 +1,34 @@
+name: angtest
+version: 0.0.1
+dependencies:
+# Started with Angular2 package
+  angular2: 2.0.0-beta.0
+  browser: any
+
+# Polymer
+  polymer: any
+  web_components: any
+  reflectable: any
+  polymer_elements:
+    git: https://github.com/dart-lang/polymer_elements
+  dart_to_js_script_rewriter: any
+
+
+transformers:
+# Started with Angular2 package
+- angular2:
+    entry_points: web/main.dart
+
+# Polymer
+- web_components:
+    entry_points: web/index.html
+- reflectable:
+    entry_points: web/index.bootstrap.initialize.dart
+- $dart2js:
+    $include: '**/*.bootstrap.initialize.dart'
+    minify: true
+    commandLineOptions:
+    - --trust-type-annotations
+    - --trust-primitives
+- dart_to_js_script_rewriter
+
